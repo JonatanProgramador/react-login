@@ -1,12 +1,12 @@
-import env from "../../env";
+
 
 
 export default function UserServices() {
 
-    const ENV = env();
+    const ENV = import.meta.env.VITE_URL_API;
 
     async function register(data) {
-        let response = await fetch(ENV.URL_API+"user", {
+        let response = await fetch(ENV+"user", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({name: data.name, password: data.password, message:data.message})
@@ -15,7 +15,7 @@ export default function UserServices() {
     }
 
     async function login(data) {
-        let response = await fetch(ENV.URL_API+"auth", {
+        let response = await fetch(ENV+"auth", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({name: data.name, password: data.password})
