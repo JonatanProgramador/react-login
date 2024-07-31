@@ -3,7 +3,8 @@
 
 export default function UserServices() {
 
-    const ENV = import.meta.env.VITE_URL_API;
+    //const ENV = import.meta.env.VITE_URL_API;
+    const ENV = "http://localhost/"
 
     async function register(data) {
         let response = await fetch(ENV+"user", {
