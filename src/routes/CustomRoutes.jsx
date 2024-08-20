@@ -5,12 +5,13 @@ import Register from "../pages/register/Register";
 import MenuBar from "../components/MenuBar";
 import Dashboard from "../pages/dashboard/Dashboard";
 import { UserContext } from "../context/UserContext";
+import { getCookie } from "../utils/cookies";
 
 
 
 export default function CustomRoutes() {
 
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState(getCookie("id") && getCookie("token")?true:false);
    
 
     function Header() {
@@ -25,7 +26,7 @@ export default function CustomRoutes() {
         { path: "/", element: <Header />, children:[
             { path: "/", element: <Login /> },
             { path: "registrar", element: <Register />},
-           { path: "dashboard", element: user?.name !== undefined ?<Dashboard />:<Navigate to="/" />},
+           { path: "dashboard", element: user ?<Dashboard />:<Navigate to="/" />},
            { path: '*', element: <Navigate to="/" /> },
         ] },
     ])

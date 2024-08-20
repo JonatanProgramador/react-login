@@ -21,7 +21,7 @@ export default function MenuBar() {
 
         <Box
           sx={{ display: { xs: "none", sm: "block" } }}>
-            {user?.name !== undefined ? <Typography
+            {user? <Typography
           variant="h6"
           component={Link}
           to={"/dashboard"}

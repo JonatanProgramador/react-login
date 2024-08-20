@@ -15,13 +15,26 @@ export default function UserServices() {
         return await response.json();
     }
 
-    async function login(data) {
+    async function login(name, password) {
         let response = await fetch(ENV+"auth", {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({name: data.name, password: data.password})
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Basic "+ btoa(name+":"+password)
+            },
+    })
+        return await response.json();
+    }
+
+    async function getUser(id, token) {
+        let response = await fetch(ENV+"user/"+id, {
+            method: "GET",
+            headers: {"Content-Type": "application/json",
+                "Authorization": "Bearer "+ token
+            }
         })
         return await response.json();
     }
-    return {register, login};
+
+    return {register, login, getUser};
 } 
