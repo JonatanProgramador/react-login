@@ -6,10 +6,12 @@ import UserServices from "../../services/UserServices";
 import { UserContext } from "../../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import CustomAlert from "../../components/CustomAlert";
+import { setCookie, deleteCookie } from "../../utils/cookies";
 
 export default function Login() {
 
-  const {login} = UserServices();
+  const {login, getUser} = UserServices();
+
   const {setUser} = useContext(UserContext);
   const [alert, setAlert] = useState({type: null, message: null});
 
@@ -28,10 +30,16 @@ export default function Login() {
     }),
     onSubmit: values => {
       (async () =>{
-        let response = await login(values);
+        let response = await login(values.name, values.password);
         if(response.code === 200) {
-          setUser(response.data);
-          navigate("/dashboard");
+          deleteCookie("token");
+          deleteCookie("id");
+          setCookie("token", response.data.token, {"max-age":180});
+          setCookie("id", response.data.id, {"max-age":180});
+          let user = await getUser(response.data.id, response.data.token);
+          console.log(user);
+          setUser(true);
+          formik.resetForm();
         } else {
           setAlert({type: "error", message: response.code+" "+response.message});
           setTimeout(()=>{setAlert({type: null, message: null})}, 3000);
