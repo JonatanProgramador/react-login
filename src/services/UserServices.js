@@ -26,7 +26,7 @@ export default function UserServices() {
         return await response.json();
     }
 
-    async function getUser(id, token) {
+    async function showUser(id, token) {
         let response = await fetch(ENV+"user/"+id, {
             method: "GET",
             headers: {"Content-Type": "application/json",
@@ -36,5 +36,15 @@ export default function UserServices() {
         return await response.json();
     }
 
-    return {register, login, getUser};
+    async function getUsers(token) {
+        let response = await fetch(ENV+"user", {
+            method: "GET",
+            headers: {"Content-Type": "application/json",
+                "Authorization": "Bearer "+ token
+            }
+        })
+        return await response.json();
+    }
+
+    return {register, login, getUsers, showUser};
 } 
