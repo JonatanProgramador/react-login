@@ -5,17 +5,17 @@ import Register from "../pages/register/Register";
 import MenuBar from "../components/MenuBar";
 import Dashboard from "../pages/dashboard/Dashboard";
 import { UserContext } from "../context/UserContext";
-import { getCookie } from "../utils/cookies";
+import { getCookie, checkCookies } from "../utils/cookies";
+import Users from "../pages/users/Users";
 
 
 
 export default function CustomRoutes() {
 
-    const [user, setUser] = useState(getCookie("id") && getCookie("token")?true:false);
-   
-
+    const [user, setUser] = useState(checkCookies());
+  
     function Header() {
-        return (<UserContext.Provider value={{user, setUser}}>
+        return (<UserContext.Provider value={{user, setUser, checkCookies}}>
             <MenuBar />
             <Outlet />
             </UserContext.Provider>
@@ -27,6 +27,7 @@ export default function CustomRoutes() {
             { path: "/", element: <Login /> },
             { path: "registrar", element: <Register />},
            { path: "dashboard", element: user ?<Dashboard />:<Navigate to="/" />},
+           { path: "usuarios", element: user &&  getCookie("rol")?.includes("admin")?<Users />:<Navigate to="/" />},
            { path: '*', element: <Navigate to="/" /> },
         ] },
     ])

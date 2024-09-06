@@ -1,14 +1,18 @@
 import { Box, Button, Paper, TextField, Typography } from "@mui/material";
 import { useFormik } from "formik";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import * as Yup from 'yup';
 import UserServices from "../../services/UserServices";
 import CustomAlert from "../../components/CustomAlert";
+import { UserContext } from "../../context/UserContext";
+import { checkCookies } from "../../utils/cookies";
 
 export default function Register() {
 
   const userServices = UserServices();
+  const {setUser} = useContext(UserContext);
   const [alert, setAlert] = useState({ type: null, message: null });
+  useEffect(()=>{setUser(checkCookies())}, []);
 
   const formik = useFormik({
     initialValues: {

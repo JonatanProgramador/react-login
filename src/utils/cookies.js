@@ -32,8 +32,11 @@ function getCookie(name) {
         updatedCookie += "=" + optionValue;
       }
     }
-  
     document.cookie = updatedCookie;
   }
+
+  function checkCookies() {
+    return getCookie("id") && getCookie("token") && getCookie("rol")?true:false;
+}
   
-  export {setCookie, getCookie, deleteCookie};
+  export {setCookie, getCookie, deleteCookie, checkCookies};

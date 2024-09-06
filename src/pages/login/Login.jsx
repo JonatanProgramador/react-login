@@ -6,16 +6,17 @@ import UserServices from "../../services/UserServices";
 import { UserContext } from "../../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import CustomAlert from "../../components/CustomAlert";
-import { setCookie, deleteCookie } from "../../utils/cookies";
+import { setCookie, deleteCookie, checkCookies } from "../../utils/cookies";
 
 export default function Login() {
 
-  const {login, getUser} = UserServices();
+  const {login} = UserServices();
 
   const {setUser} = useContext(UserContext);
   const [alert, setAlert] = useState({type: null, message: null});
 
-  const navigate = useNavigate();
+  useEffect(()=>{setUser(checkCookies())}, []);
+
   
   
 
@@ -34,10 +35,10 @@ export default function Login() {
         if(response.code === 200) {
           deleteCookie("token");
           deleteCookie("id");
+          deleteCookie("rol");
           setCookie("token", response.data.token, {"max-age":180});
           setCookie("id", response.data.id, {"max-age":180});
-          let user = await getUser(response.data.id, response.data.token);
-          console.log(user);
+          setCookie("rol", response.data.rol, {"max-age":180});
           setUser(true);
           formik.resetForm();
         } else {

@@ -2,28 +2,27 @@ import { Box, Paper, TextField } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../context/UserContext";
 import UserServices from "../../services/UserServices";
-import { getCookie } from "../../utils/cookies";
-import { useNavigate } from "react-router-dom";
+import { getCookie, checkCookies } from "../../utils/cookies";
 
 
 export default function Dashboard() {
 
-    const [user, setUser] = useState();
-    const { login, getUser } = UserServices();
-    const navigate = useNavigate();
+    const [data, setData] = useState();
+    const {showUser } = UserServices();
+    const {setUser} = useContext(UserContext);
 
     useEffect(() => {
-        if (getCookie("id") && getCookie("token")) {
+        if (checkCookies()) {
             (async () => {
-                let response = await getUser(getCookie("id"), getCookie("token"));
-                setUser(response.data)
+                let response = await showUser(getCookie("id"), getCookie("token"));
+                setData(response.data)
             })()
         } else {
-            navigate("/");
+            setUser(false);
         }
     }, [])
 
-    return user ? (<Box
+    return data ? (<Box
         height={"90vh"}
         display={"flex"}
         justifyContent={"center"}
@@ -40,7 +39,7 @@ export default function Dashboard() {
                 <TextField
                     id="name"
                     label="Nombre"
-                    defaultValue={user.name}
+                    defaultValue={data.name}
                     InputProps={{
                         readOnly: true,
                     }}
@@ -50,7 +49,7 @@ export default function Dashboard() {
                 <TextField
                     id="message"
                     label="Mensaje"
-                    defaultValue={user.message}
+                    defaultValue={data.message}
                     sx={{ marginBottom: 2 }}
                     multiline
                     InputProps={{
