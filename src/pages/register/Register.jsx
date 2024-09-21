@@ -17,12 +17,14 @@ export default function Register() {
   const formik = useFormik({
     initialValues: {
       name: "",
+      email:"",
       password: "",
       passwordRepeat: "",
       message: ""
     },
     validationSchema: Yup.object({
       name: Yup.string().required("Nombre requerido"),
+      email: Yup.string().email("Tiene que ser un email valido").required("Email requerido"),
       password: Yup.string().required("Contraseña requerida"),
       passwordRepeat: Yup.string().required("Contraseña requerida")
     }),
@@ -70,6 +72,16 @@ export default function Register() {
             error={formik.errors.name ? true : false}
             helperText={formik.errors.name}
             sx={{ marginBottom: 2 }}
+            variant="outlined" />
+            <TextField
+            id="email"
+            label="Email"
+            value={formik.values.email}
+            onChange={formik.handleChange}
+            error={formik.errors.email ? true : false}
+            helperText={formik.errors.email}
+            sx={{ marginBottom: 2 }}
+            type="email"
             variant="outlined" />
           <TextField
             id="password"

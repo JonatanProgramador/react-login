@@ -10,7 +10,7 @@ export default function UserServices() {
         let response = await fetch(ENV+"user", {
             method: "POST",
             headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({name: data.name, password: data.password, message:data.message})
+            body: JSON.stringify({name: data.name, email: data.email, password: data.password, message:data.message})
         })
         return await response.json();
     }

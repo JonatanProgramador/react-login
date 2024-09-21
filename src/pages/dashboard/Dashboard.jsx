@@ -46,6 +46,16 @@ export default function Dashboard() {
                     sx={{ marginBottom: 2 }}
                 />
 
+<TextField
+                    id="email"
+                    label="Email"
+                    defaultValue={data.email}
+                    InputProps={{
+                        readOnly: true,
+                    }}
+                    sx={{ marginBottom: 2 }}
+                />
+
                 <TextField
                     id="message"
                     label="Mensaje"
