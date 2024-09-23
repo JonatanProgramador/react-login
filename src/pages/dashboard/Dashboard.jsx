@@ -8,8 +8,8 @@ import { getCookie, checkCookies } from "../../utils/cookies";
 export default function Dashboard() {
 
     const [data, setData] = useState();
-    const {showUser } = UserServices();
-    const {setUser} = useContext(UserContext);
+    const { showUser } = UserServices();
+    const { setUser } = useContext(UserContext);
 
     useEffect(() => {
         if (checkCookies()) {
@@ -46,7 +46,7 @@ export default function Dashboard() {
                     sx={{ marginBottom: 2 }}
                 />
 
-<TextField
+                <TextField
                     id="email"
                     label="Email"
                     defaultValue={data.email}
@@ -60,6 +60,17 @@ export default function Dashboard() {
                     id="message"
                     label="Mensaje"
                     defaultValue={data.message}
+                    sx={{ marginBottom: 2 }}
+                    multiline
+                    InputProps={{
+                        readOnly: true,
+                    }}
+                />
+
+                <TextField
+                    id="rols"
+                    label="Roles"
+                    defaultValue={data.rols}
                     sx={{ marginBottom: 2 }}
                     multiline
                     InputProps={{

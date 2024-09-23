@@ -32,6 +32,7 @@ export default function Users() {
               <TableCell>Nombre</TableCell>
               <TableCell>Mensaje</TableCell>
               <TableCell>Email</TableCell>
+              <TableCell>Roles</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -44,6 +45,7 @@ export default function Users() {
                 <TableCell>{row.name}</TableCell>
                 <TableCell>{row.message}</TableCell>
                 <TableCell>{row.email}</TableCell>
+                <TableCell>{row.rols}</TableCell>
               </TableRow>
             ))}
           </TableBody>
