@@ -7,6 +7,7 @@ import Dashboard from "../pages/dashboard/Dashboard";
 import { UserContext } from "../context/UserContext";
 import { getCookie, checkCookies } from "../utils/cookies";
 import Users from "../pages/users/Users";
+import ResetPassword from "../pages/resetPassword/ResetPassword";
 
 
 
@@ -28,6 +29,7 @@ export default function CustomRoutes() {
             { path: "registrar", element: <Register />},
            { path: "dashboard", element: user ?<Dashboard />:<Navigate to="/" />},
            { path: "usuarios", element: user &&  getCookie("rol")?.includes("admin")?<Users />:<Navigate to="/" />},
+           { path: "resetearPassword", element: <ResetPassword/>},
            { path: '*', element: <Navigate to="/" /> },
         ] },
     ])
