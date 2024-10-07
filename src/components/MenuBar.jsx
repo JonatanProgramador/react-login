@@ -10,7 +10,7 @@ export default function MenuBar() {
   const { user } = useContext(UserContext);
   const [openMenu, setOpenMenu] = useState(null);
 
-  useEffect(()=>{console.log("meunbar")}, []);
+
 
   return (
     <AppBar component={"nav"}
